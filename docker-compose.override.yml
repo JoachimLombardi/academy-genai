@@ -1,4 +1,3 @@
-version: '3.1'
 services:
   scheduler:
     networks:
@@ -17,8 +16,8 @@ services:
       AUTHENTICATION_APIKEY_ALLOWED_KEYS: 'readonlykey,adminkey'
       AUTHENTICATION_APIKEY_USERS: 'jane@doe.com,john@doe.com'
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
-      DEFAULT_VECTORIZER_MODULE: 'text2vec-openai'
-      ENABLE_MODULES: 'text2vec-openai, backup-filesystem, qna-openai, text2vec'
+      DEFAULT_VECTORIZER_MODULE: 'text2vec-transformers'
+      ENABLE_MODULES: 'text2vec-transformers, backup-filesystem, text2vec'
       BACKUP_FILESYSTEM_PATH: '/var/lib/weaviate/backup'
       CLUSTER_HOSTNAME: 'node1'
     networks:

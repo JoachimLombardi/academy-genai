@@ -1,42 +1,42 @@
 {
-    "classes": [
-        {
-            "class": "MYDATA",
-            "description": "Knowledge about Airflow",
-            "vectorizer": "text2vec-openai",
-            "moduleConfig": {},
-            "properties": [
-                {
-                    "name": "title",
-                    "description": "Title of the knowledge base article",
-                    "dataType": [
-                        "text"
-                    ],
-                    "moduleConfig": {
-                        "text2vec-openai": {
-                            "skip": "False",
-                            "vectorizePropertyName": "False"
-                        }
-                    },
-                    "index_filterable": "True",
-                    "index_searchable": "True"
-                },
-                {
-                    "name": "text",
-                    "description": "Full text of the knowledge base article",
-                    "dataType": [
-                        "text"
-                    ],
-                    "moduleConfig": {
-                        "text2vec-openai": {
-                            "skip": "False",
-                            "vectorizePropertyName": "True"
-                        }
-                    },
-                    "index_filterable": "True",
-                    "index_searchable": "True"
-                }
-            ]
+  "classes": [
+    {
+      "class": "MYDATA",
+      "description": "Knowledge about Airflow",
+      "vectorizer": "text2vec-transformers",
+      "moduleConfig": {
+        "text2vec-transformers": {
+          "vectorizeClassName": true
         }
-    ]
+      },
+      "properties": [
+        {
+          "name": "title",
+          "description": "Title of the knowledge base article",
+          "dataType": ["text"],
+          "moduleConfig": {
+            "text2vec-transformers": {
+              "skip": false,
+              "vectorizePropertyName": false
+            }
+          },
+          "indexFilterable": true,
+          "indexSearchable": true
+        },
+        {
+          "name": "text",
+          "description": "Full text of the knowledge base article",
+          "dataType": ["text"],
+          "moduleConfig": {
+            "text2vec-transformers": {
+              "skip": false,
+              "vectorizePropertyName": true
+            }
+          },
+          "indexFilterable": true,
+          "indexSearchable": true
+        }
+      ]
+    }
+  ]
 }

@@ -1,5 +1,5 @@
+import requests
 import streamlit as st
-from openai import OpenAI
 import weaviate
 import os
 
@@ -13,7 +13,6 @@ def get_relevant_chunks(user_prompt, limit=5, certainty=0.75):
         host="weaviate",
         port=8081,
         auth_credentials=weaviate.auth.AuthApiKey("adminkey"),
-        headers={"X-OpenAI-Api-key": os.getenv("OPENAI_API_KEY")},
         skip_init_checks=True,
     )
 
@@ -53,14 +52,20 @@ def get_response(chunks, user_prompt):
     inference_prompt += """ 
     Remember to keep the post short and sweet! At the end of the post add another sentence that is a space fact!"""
 
-    client = OpenAI()
+    model = "gpt-oss"
+    messages = [{"role": "user", "content": inference_prompt}]
 
-    champion_model_id = "gpt-4"
-
-    chat_completion = client.chat.completions.create(
-        model=champion_model_id,
-        messages=[{"role": "user", "content": inference_prompt}],
-    )
+    data = {
+                "model": model,
+                "messages": messages,
+                "stream": False,
+                "temperature": 0,
+                "max_tokens": 5000,
+                "top_p": 1e-6,
+                "seed": 42
+            }
+    
+    chat_completion = requests.post('http://localhost:11434/api/chat', json=data).json()
 
     return chat_completion
 
