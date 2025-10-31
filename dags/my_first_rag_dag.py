@@ -67,9 +67,13 @@ def my_first_rag_dag():
         # connect to Weaviate using the Airflow connection `conn_id`
         hook = WeaviateHook(conn_id)
 
-        # check if the collection exists in the Weaviate database
-        collection = hook.get_conn().collections.exists(collection_name)
+        client = hook.get_conn()
 
+        # check if the collection exists in the Weaviate database
+        collection = client.collections.exists(collection_name)
+
+        print(client.is_ready())
+        
         if collection:
             t_log.info(f"Collection {collection_name} already exists.")
             return collection_already_exists_task_id
